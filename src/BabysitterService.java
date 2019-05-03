@@ -10,6 +10,8 @@ public class BabysitterService {
     }
 
     public boolean isOneNight(Calendar start, Calendar end) {
-        return true;
+        long diffInSeconds = (end.getTimeInMillis() - start.getTimeInMillis()) / 1000;
+        int diffInHours = (int) diffInSeconds / 3600;
+        return diffInHours <= 11;
     }
 }
