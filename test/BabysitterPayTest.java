@@ -36,4 +36,15 @@ public class BabysitterPayTest {
         assertTrue(service.isOneNight(start, end));
         assertFalse(service.isOneNight(start, newDay));
     }
+
+    @Test
+    public void isAvailableFailsWhenRequestingReservedNight() {
+        Calendar start = new GregorianCalendar(
+                2019, Calendar.MAY, 4, 18, 0);
+        Calendar end = new GregorianCalendar(
+                2019, Calendar.MAY, 5, 3, 0);
+        String family = "FamilyA";
+        service.addReservation(family, start, end);
+        assertFalse(service.isAvailable(start));
+    }
 }
