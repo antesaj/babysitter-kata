@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BabysitterService {
-    private HashMap<String, ArrayList<Calendar>> reservations;
+    public static HashMap<String, ArrayList<Calendar>> reservations;
 
     public static final int LATEST_HOUR_AVAILABLE = 4;
     public static final int EARLIEST_HOUR_AVAILABLE = 17;
@@ -13,7 +13,7 @@ public class BabysitterService {
         reservations = new HashMap<>();
     }
 
-    public int calculateAmountOwed(Calendar start, Calendar end){
+    protected int calculateAmountOwed(Calendar start, Calendar end){
         return 0;
     };
 
