@@ -47,4 +47,6 @@ public class BabysitterPayTest {
         service.addReservation(family, start, end);
         assertFalse(service.isAvailable(start));
     }
+
+    
 }
