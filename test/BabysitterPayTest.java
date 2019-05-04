@@ -48,5 +48,10 @@ public class BabysitterPayTest {
         assertFalse(service.isAvailable(start));
     }
 
-    
+    @Test
+    public void isAvailablePassesWhenRequestingAvailableNight() {
+        Calendar start = new GregorianCalendar(
+                2019, Calendar.MAY, 4, 18, 0);
+        assertTrue(service.isAvailable(start));
+    }
 }
