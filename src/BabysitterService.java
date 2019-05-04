@@ -8,11 +8,14 @@ public class BabysitterService {
     public static final int LATEST_HOUR_AVAILABLE = 4;
     public static final int EARLIEST_HOUR_AVAILABLE = 17;
     public static final int START_TIME_INDEX = 0;
-    public static final int END_TIME_INDEX = 1;
 
     public BabysitterService() {
         reservations = new HashMap<>();
     }
+
+    public int calculateAmountOwed(Calendar start, Calendar end){
+        return 0;
+    };
 
     public void addReservation(String family, Calendar start, Calendar end) {
         if (isAvailable(start) && isAvailable(end) && isOneNight(start, end)) {

@@ -54,7 +54,9 @@ public class BabysitterPayTest {
     @Test
     public void testFamilyAPayCalculation() {
         // Pays $15 per hour before 11pm, $20 per hour rest of night.
-
-
+        BabysitterService service = BabysitterServiceFactory.getService("FamilyA");
+        service.addReservation("FamilyA", start, end);
+        int amountOwed = service.calculateAmountOwed(start, end);
+        assertEquals(95, amountOwed);
     }
 }
