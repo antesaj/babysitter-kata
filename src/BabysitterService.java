@@ -7,6 +7,8 @@ public class BabysitterService {
 
     public static final int LATEST_HOUR_AVAILABLE = 4;
     public static final int EARLIEST_HOUR_AVAILABLE = 17;
+    public static final int START_TIME_INDEX = 0;
+    public static final int END_TIME_INDEX = 1;
 
     public BabysitterService() {
         reservations = new HashMap<>();
@@ -30,8 +32,8 @@ public class BabysitterService {
         int requestedDay = date.get(Calendar.DAY_OF_MONTH);
         for (Object value : reservations.values()) {
             ArrayList<Calendar> times = (ArrayList<Calendar>) value;
-            int reservedMonth = times.get(0).get(Calendar.MONTH);
-            int reservedDay = times.get(0).get(Calendar.DAY_OF_MONTH);
+            int reservedMonth = times.get(START_TIME_INDEX).get(Calendar.MONTH);
+            int reservedDay = times.get(START_TIME_INDEX).get(Calendar.DAY_OF_MONTH);
             if (requestedMonth == reservedMonth && requestedDay == reservedDay) {
                 nightIsAvailable = false;
             }
