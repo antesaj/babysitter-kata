@@ -9,6 +9,7 @@ public class FamilyACalculator implements PayCalculator {
 
         int startHour = start.get(Calendar.HOUR_OF_DAY);
         int endHour = end.get(Calendar.HOUR_OF_DAY);
+
         int amountOwed = 0;
         if (endHour <= 4) {
             amountOwed += payRestOfNight;

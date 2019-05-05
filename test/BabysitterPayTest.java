@@ -62,15 +62,26 @@ public class BabysitterPayTest {
 
     @Test
     public void testFamilyAPayCalculation() {
-        service.addReservation("FamilyA", start, end);
         PayCalculator payCalculator = BabysitterService.getPayCalculator("FamilyA");
+        // Case where time starts before 11pm and ends after 11pm
         int amountOwed = payCalculator.calculateAmountOwed(start, end);
         assertEquals(95, amountOwed);
+
+        // Case where time range doesn't go past 11pm
         Calendar start2 = new GregorianCalendar(
                 2019, Calendar.MAY, 4, 18, 0);
         Calendar end2 = new GregorianCalendar(
                 2019, Calendar.MAY, 4, 23, 0);
         int amountOwed2 = payCalculator.calculateAmountOwed(start2, end2);
         assertEquals(75, amountOwed2);
+
+        // Case where start/end has a fractional hour
+        Calendar fractionalStart = new GregorianCalendar(
+                2019, Calendar.MAY, 4, 18, 30);
+        Calendar fractionalEnd = new GregorianCalendar(
+                2019, Calendar.MAY, 5, 2, 30);
+        int amountOwed3 = payCalculator.calculateAmountOwed(fractionalStart, fractionalEnd);
+        assertEquals(95, amountOwed);
+
     }
 }
