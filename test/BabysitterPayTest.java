@@ -81,7 +81,7 @@ public class BabysitterPayTest {
         Calendar fractionalEnd = new GregorianCalendar(
                 2019, Calendar.MAY, 5, 2, 30);
         int amountOwed3 = payCalculator.calculateAmountOwed(fractionalStart, fractionalEnd);
-        assertEquals(95, amountOwed);
+        assertEquals(95, amountOwed3);
     }
 
     @Test
@@ -89,5 +89,12 @@ public class BabysitterPayTest {
         PayCalculator payCalculator = BabysitterService.getPayCalculator(BabysitterService.FAMILY_B);
         int amountOwed = payCalculator.calculateAmountOwed(start, end);
         assertEquals(80, amountOwed);
+
+        Calendar start2 = new GregorianCalendar(
+                2019, Calendar.MAY, 4, 22, 0);
+        Calendar end2 = new GregorianCalendar(
+                2019, Calendar.MAY, 5, 1, 0);
+        int amountOwed2 = payCalculator.calculateAmountOwed(start2, end2);
+        assertEquals(32, amountOwed2);
     }
 }
