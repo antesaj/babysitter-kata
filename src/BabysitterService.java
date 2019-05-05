@@ -26,10 +26,12 @@ public class BabysitterService {
     }
 
     public static PayCalculator getPayCalculator(String family) {
-        if (family.equals("FamilyA")) {
+        if (family.equals(FAMILY_A)) {
             return new FamilyACalculator();
-        } else if (family.equals("FamilyB")) {
+        } else if (family.equals(FAMILY_B)) {
             return new FamilyBCalculator();
+        } else if (family.equals(FAMILY_C)) {
+            return new FamilyCCalculator();
         } else {
             return null;
         }
