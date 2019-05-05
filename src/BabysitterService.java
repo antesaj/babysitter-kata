@@ -9,6 +9,10 @@ public class BabysitterService {
     public static final int EARLIEST_HOUR_AVAILABLE = 17;
     public static final int START_TIME_INDEX = 0;
 
+    public static final String FAMILY_A = "FamilyA";
+    public static final String FAMILY_B = "FamilyB";
+    public static final String FAMILY_C = "FamilyC";
+
     private static BabysitterService service = null;
     private BabysitterService() {
         reservations = new HashMap<>();
@@ -24,6 +28,8 @@ public class BabysitterService {
     public static PayCalculator getPayCalculator(String family) {
         if (family.equals("FamilyA")) {
             return new FamilyACalculator();
+        } else if (family.equals("FamilyB")) {
+            return new FamilyBCalculator();
         } else {
             return null;
         }

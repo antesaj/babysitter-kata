@@ -53,7 +53,7 @@ public class BabysitterPayTest {
 
     @Test
     public void isAvailableFailsWhenRequestingReservedNight() {
-        String family = "FamilyA";
+        String family = BabysitterService.FAMILY_A;
         service.addReservation(family, start, end);
         assertFalse(service.isAvailable(start));
         BabysitterService service2 = BabysitterService.getService();
@@ -62,7 +62,7 @@ public class BabysitterPayTest {
 
     @Test
     public void testFamilyAPayCalculation() {
-        PayCalculator payCalculator = BabysitterService.getPayCalculator("FamilyA");
+        PayCalculator payCalculator = BabysitterService.getPayCalculator(BabysitterService.FAMILY_A);
         // Case where time starts before 11pm and ends after 11pm
         int amountOwed = payCalculator.calculateAmountOwed(start, end);
         assertEquals(95, amountOwed);
@@ -86,8 +86,7 @@ public class BabysitterPayTest {
 
     @Test
     public void testFamilyBCalculation() {
-        // $12 per hour before 10pm, $8 between 10 and 12, $16 the rest of night
-        PayCalculator payCalculator = BabysitterService.getPayCalculator("FamilyB");
+        PayCalculator payCalculator = BabysitterService.getPayCalculator(BabysitterService.FAMILY_B);
         int amountOwed = payCalculator.calculateAmountOwed(start, end);
         assertEquals(80, amountOwed);
     }
