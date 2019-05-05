@@ -1,6 +1,5 @@
 import org.junit.Before;
 import org.junit.Test;
-import sun.util.calendar.Gregorian;
 
 import static org.junit.Assert.*;
 
@@ -14,7 +13,7 @@ public class BabysitterPayTest {
 
     @Before
     public void setUp() {
-        service = new BabysitterService();
+        service = BabysitterService.getService();
         start = new GregorianCalendar(
                 2019, Calendar.MAY, 4, 18, 0);
         end = new GregorianCalendar(
@@ -46,7 +45,7 @@ public class BabysitterPayTest {
         String family = "FamilyA";
         service.addReservation(family, start, end);
         assertFalse(service.isAvailable(start));
-        BabysitterService service2 = BabysitterServiceFactory.getService(family);
+        BabysitterService service2 = BabysitterService.getService();
         assertFalse(service2.isAvailable(start));
     }
 
@@ -57,15 +56,15 @@ public class BabysitterPayTest {
 
     @Test
     public void testFamilyAPayCalculation() {
-        BabysitterService service = BabysitterServiceFactory.getService("FamilyA");
         service.addReservation("FamilyA", start, end);
-        int amountOwed = service.calculateAmountOwed(start, end);
+        PayCalculator payCalculator = BabysitterService.getPayCalculator("FamilyA");
+        int amountOwed = payCalculator.calculateAmountOwed(start, end);
         assertEquals(95, amountOwed);
         Calendar start2 = new GregorianCalendar(
                 2019, Calendar.MAY, 4, 18, 0);
         Calendar end2 = new GregorianCalendar(
                 2019, Calendar.MAY, 4, 23, 0);
-        int amountOwed2 = service.calculateAmountOwed(start2, end2);
+        int amountOwed2 = payCalculator.calculateAmountOwed(start2, end2);
         assertEquals(75, amountOwed2);
     }
 }

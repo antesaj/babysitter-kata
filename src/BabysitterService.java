@@ -9,13 +9,25 @@ public class BabysitterService {
     public static final int EARLIEST_HOUR_AVAILABLE = 17;
     public static final int START_TIME_INDEX = 0;
 
-    public BabysitterService() {
+    private static BabysitterService service = null;
+    private BabysitterService() {
         reservations = new HashMap<>();
     }
 
-    protected int calculateAmountOwed(Calendar start, Calendar end){
-        return 0;
-    };
+    public static BabysitterService getService() {
+        if (service == null) {
+            service = new BabysitterService();
+        }
+        return service;
+    }
+
+    public static PayCalculator getPayCalculator(String family) {
+        if (family.equals("FamilyA")) {
+            return new FamilyACalculator();
+        } else {
+            return null;
+        }
+    }
 
     public void addReservation(String family, Calendar start, Calendar end) {
         if (isAvailable(start) && isAvailable(end) && isOneNight(start, end)) {

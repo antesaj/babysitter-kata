@@ -1,8 +1,7 @@
 import java.util.Calendar;
 
-public class FamilyAService extends BabysitterService {
+public class FamilyACalculator implements PayCalculator {
 
-    @Override
     public int calculateAmountOwed(Calendar start, Calendar end) {
         // Pays $15 per hour before 11pm, $20 per hour rest of night.
         int hourlyPay = 15;
