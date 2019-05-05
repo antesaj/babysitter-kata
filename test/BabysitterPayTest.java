@@ -1,3 +1,4 @@
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,6 +19,16 @@ public class BabysitterPayTest {
                 2019, Calendar.MAY, 4, 18, 0);
         end = new GregorianCalendar(
                 2019, Calendar.MAY, 5, 3, 0);
+    }
+
+    @After
+    public void tearDown() {
+        service.reservations.clear();
+    }
+
+    @Test
+    public void isAvailablePassesWhenRequestingAvailableNight() {
+        assertTrue(service.isAvailable(start));
     }
 
     @Test
@@ -47,11 +58,6 @@ public class BabysitterPayTest {
         assertFalse(service.isAvailable(start));
         BabysitterService service2 = BabysitterService.getService();
         assertFalse(service2.isAvailable(start));
-    }
-
-    @Test
-    public void isAvailablePassesWhenRequestingAvailableNight() {
-        assertTrue(service.isAvailable(start));
     }
 
     @Test
