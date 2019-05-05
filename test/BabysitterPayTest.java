@@ -82,6 +82,13 @@ public class BabysitterPayTest {
                 2019, Calendar.MAY, 5, 2, 30);
         int amountOwed3 = payCalculator.calculateAmountOwed(fractionalStart, fractionalEnd);
         assertEquals(95, amountOwed);
+    }
 
+    @Test
+    public void testFamilyBCalculation() {
+        // $12 per hour before 10pm, $8 between 10 and 12, $16 the rest of night
+        PayCalculator payCalculator = BabysitterService.getPayCalculator("FamilyB");
+        int amountOwed = payCalculator.calculateAmountOwed(start, end);
+        assertEquals(80, amountOwed);
     }
 }
