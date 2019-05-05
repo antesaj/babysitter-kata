@@ -97,4 +97,11 @@ public class BabysitterPayTest {
         int amountOwed2 = payCalculator.calculateAmountOwed(start2, end2);
         assertEquals(32, amountOwed2);
     }
+
+    @Test
+    public void testFamilyCCalculation() {
+        PayCalculator payCalculator = BabysitterService.getPayCalculator(BabysitterService.FAMILY_C);
+        int amountOwed = payCalculator.calculateAmountOwed(start, end);
+        assertEquals(78, amountOwed);
+    }
 }
