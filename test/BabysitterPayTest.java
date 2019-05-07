@@ -49,6 +49,14 @@ public class BabysitterPayTest {
         service.addReservation("FamilyD", start, end);
     }
 
+    @Test(expected = ReservationOutOfRangeException.class)
+    public void reservationOutOfRangeExceptionWhenAttemptingMoreThanOneNight()
+        throws ReservationOutOfRangeException {
+        Calendar newDay = new GregorianCalendar(
+                2019, Calendar.MAY, 6, 3,0);
+        service.addReservation(BabysitterService.FAMILY_A, start, newDay);
+    }
+
 
     @Test
     public void isOneNightPassesOnlyWhenRangeIsLessThanElevenHours() {
