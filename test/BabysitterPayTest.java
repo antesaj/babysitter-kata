@@ -111,7 +111,31 @@ public class BabysitterPayTest {
 
     @Test
     public void testFamilyBCalculation() {
+        // $12 per hour before 10pm, $8 between 10 and 12, $16 the rest of night
         PayCalculator payCalculator = BabysitterService.getPayCalculator(BabysitterService.FAMILY_B);
+
+        // Case for all hours before 10pm
+        GregorianCalendar startAtSevenPM = generateDatetime(6, 19, 0);
+        GregorianCalendar endAtTenPM = generateDatetime(6, 22, 0);
+        // Case for hours between 6pm and 3am
+        GregorianCalendar startAtSixPM = generateDatetime(6, 18, 0);
+        GregorianCalendar endAtThreeAM = generateDatetime(7, 3, 0);
+        // Case for 10-12
+        GregorianCalendar startAtTenPM = generateDatetime(6, 22, 0);
+        GregorianCalendar endAtTwelveAM = generateDatetime(7,0,0);
+        // Case for 'rest of the night' only
+        GregorianCalendar startAtTwoAM = generateDatetime(7,2,0);
+        GregorianCalendar endAtFourAM = generateDatetime(7,4,0);
+
+        int amountOwed = payCalculator.calculateAmountOwed(startAtSevenPM, endAtTenPM);
+        int amountOwed2 = payCalculator.calculateAmountOwed(startAtSixPM, endAtThreeAM);
+        int amountOwed3 = payCalculator.calculateAmountOwed(startAtTenPM, endAtTwelveAM);
+        int amountOwed4 = payCalculator.calculateAmountOwed(startAtTwoAM, endAtFourAM);
+
+        assertEquals(36, amountOwed); // 12*3
+        assertEquals(112, amountOwed2); // 12*4 + 8*2 + 16*3
+        assertEquals(16, amountOwed3);
+        assertEquals(32, amountOwed4); // 16*2
 
     }
 
