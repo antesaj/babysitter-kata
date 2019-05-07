@@ -7,6 +7,11 @@ import static org.junit.Assert.*;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+/**
+ * Test cases used to test drive the BabysitterService application.
+ *
+ * @author Andrew Antes
+ */
 public class BabysitterPayTest {
     private BabysitterService service;
     private Calendar start;
@@ -122,5 +127,12 @@ public class BabysitterPayTest {
         PayCalculator payCalculator = BabysitterService.getPayCalculator(BabysitterService.FAMILY_C);
         int amountOwed = payCalculator.calculateAmountOwed(start, end);
         assertEquals(78, amountOwed);
+
+        Calendar start2 = new GregorianCalendar(
+                2019, Calendar.MAY, 8, 22, 0);
+        Calendar end2 = new GregorianCalendar(
+                2019, Calendar.MAY, 9, 1, 0);
+        int amountOwed2 = payCalculator.calculateAmountOwed(start2, end2);
+        assertEquals(15, amountOwed2);
     }
 }
