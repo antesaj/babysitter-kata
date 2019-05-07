@@ -1,0 +1,27 @@
+apply plugin: 'java'
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+version = '1.2.1'
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+    }
+
+    test {
+        java {
+            srcDirs = ['test']
+        }
+    }
+}

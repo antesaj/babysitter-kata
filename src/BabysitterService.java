@@ -16,6 +16,7 @@ public class BabysitterService {
     private static BabysitterService service = null;
     private BabysitterService() {
         reservations = new HashMap<>();
+
     }
 
     public static BabysitterService getService() {

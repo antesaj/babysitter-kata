@@ -43,6 +43,12 @@ public class BabysitterPayTest {
                 2019, Calendar.MAY, 2,18, 0)));
     }
 
+    @Test(expected = UnregisteredFamilyException.class)
+    public void unregisteredFamilyExceptionWhenRegisteringUnrecognizedFamily() {
+        service.addReservation("FamilyD", start, end);
+    }
+
+
     @Test
     public void isOneNightPassesOnlyWhenRangeIsLessThanElevenHours() {
         Calendar newDay = new GregorianCalendar(
