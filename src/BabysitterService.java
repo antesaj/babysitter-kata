@@ -79,4 +79,8 @@ public class BabysitterService {
         int diffInHours = (int) diffInSeconds / 3600;
         return diffInHours <= 11;
     }
+
+    public List<String> getRegisteredFamilies() {
+        return registeredFamilies;
+    }
 }
