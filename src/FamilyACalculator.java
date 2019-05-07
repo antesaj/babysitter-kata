@@ -10,10 +10,6 @@ public class FamilyACalculator implements PayCalculator {
         int endHour = end.get(Calendar.HOUR_OF_DAY);
 
         int amountOwed = 0;
-        if (endHour <= 4) {
-            amountOwed += REST_OF_NIGHT;
-        }
-        amountOwed += (23 - startHour) * BEFORE_ELEVEN;
         return amountOwed;
     }
 }

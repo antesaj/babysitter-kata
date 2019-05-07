@@ -11,22 +11,7 @@ public class FamilyBCalculator implements PayCalculator {
         int endHour = end.get(Calendar.HOUR_OF_DAY);
 
         int amountOwed = 0;
-        while (startHour != endHour) {
-            startHour++;
-            if (startHour <= 22 && startHour > 17) {
-                amountOwed += BEFORE_TEN;
-            }
-            if (startHour > 22) {
-                amountOwed += BETWEEN_TEN_AND_TWELVE;
-                if (startHour == 24) {
-                    startHour = 0;
-                    if (startHour != endHour) {
-                        amountOwed += AFTER_TWELVE;
-                    }
-                }
-            }
 
-        }
         return amountOwed;
     }
 }

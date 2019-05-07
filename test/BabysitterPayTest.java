@@ -1,6 +1,7 @@
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import sun.util.calendar.Gregorian;
 
 import static org.junit.Assert.*;
 
@@ -16,6 +17,10 @@ public class BabysitterPayTest {
     private BabysitterService service;
     private Calendar start;
     private Calendar end;
+
+    private GregorianCalendar generateDatetime(int day, int hour, int min) {
+        return new GregorianCalendar(2019, Calendar.MAY, day, hour, min);
+    }
 
     @Before
     public void setUp() {
@@ -86,53 +91,33 @@ public class BabysitterPayTest {
 
     @Test
     public void testFamilyAPayCalculation() {
+        // Pays $15 per hour before 11pm, $20 per hour rest of night.
         PayCalculator payCalculator = BabysitterService.getPayCalculator(BabysitterService.FAMILY_A);
-        // Case where time starts before 11pm and ends after 11pm
-        int amountOwed = payCalculator.calculateAmountOwed(start, end);
-        assertEquals(95, amountOwed);
+        GregorianCalendar startAtNinePM = generateDatetime(6, 21, 0);
+        GregorianCalendar endAtElevenPM = generateDatetime(6, 23, 0);
+        GregorianCalendar startAtSixPM = generateDatetime(6, 18, 0);
+        GregorianCalendar endAtThreeAM = generateDatetime(7, 3, 0);
+        GregorianCalendar startAtTwoAM = generateDatetime(7,2,0);
+        GregorianCalendar endAtFourAM = generateDatetime(7,4,0);
 
-        // Case where time range doesn't go past 11pm
-        Calendar start2 = new GregorianCalendar(
-                2019, Calendar.MAY, 4, 18, 0);
-        Calendar end2 = new GregorianCalendar(
-                2019, Calendar.MAY, 4, 23, 0);
-        int amountOwed2 = payCalculator.calculateAmountOwed(start2, end2);
-        assertEquals(75, amountOwed2);
+        int amountOwed = payCalculator.calculateAmountOwed(startAtNinePM, endAtElevenPM);
+        int amountOwed2 = payCalculator.calculateAmountOwed(startAtSixPM, endAtThreeAM);
+        int amountOwed3 = payCalculator.calculateAmountOwed(startAtTwoAM, endAtFourAM);
 
-        // Case where start/end has a fractional hour
-        Calendar fractionalStart = new GregorianCalendar(
-                2019, Calendar.MAY, 4, 18, 30);
-        Calendar fractionalEnd = new GregorianCalendar(
-                2019, Calendar.MAY, 5, 2, 30);
-        int amountOwed3 = payCalculator.calculateAmountOwed(fractionalStart, fractionalEnd);
-        assertEquals(95, amountOwed3);
+        assertEquals(30, amountOwed); // 15*2
+        assertEquals(155, amountOwed2); // 15*5 + 20*4
+        assertEquals(40, amountOwed3); // 20*2
     }
 
     @Test
     public void testFamilyBCalculation() {
         PayCalculator payCalculator = BabysitterService.getPayCalculator(BabysitterService.FAMILY_B);
-        int amountOwed = payCalculator.calculateAmountOwed(start, end);
-        assertEquals(80, amountOwed);
 
-        Calendar start2 = new GregorianCalendar(
-                2019, Calendar.MAY, 4, 22, 0);
-        Calendar end2 = new GregorianCalendar(
-                2019, Calendar.MAY, 5, 1, 0);
-        int amountOwed2 = payCalculator.calculateAmountOwed(start2, end2);
-        assertEquals(32, amountOwed2);
     }
 
     @Test
     public void testFamilyCCalculation() {
         PayCalculator payCalculator = BabysitterService.getPayCalculator(BabysitterService.FAMILY_C);
-        int amountOwed = payCalculator.calculateAmountOwed(start, end);
-        assertEquals(78, amountOwed);
 
-        Calendar start2 = new GregorianCalendar(
-                2019, Calendar.MAY, 8, 22, 0);
-        Calendar end2 = new GregorianCalendar(
-                2019, Calendar.MAY, 9, 1, 0);
-        int amountOwed2 = payCalculator.calculateAmountOwed(start2, end2);
-        assertEquals(15, amountOwed2);
     }
 }
