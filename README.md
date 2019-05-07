@@ -2,6 +2,10 @@
 
 ## Build Instructions
 
+### PREREQUISITE INSTALLATIONS
+- Gradle (I am using v5.4.1)
+- Java (I am using Java 8)
+
 1. Clone this repository and navigate to its root directory.
 2. Run `gradle build` at the command line.
     - This will create a build directory in the project root.
