@@ -1,5 +1,7 @@
 import java.util.Calendar;
+import java.util.List;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class BabysitterService {
@@ -13,10 +15,12 @@ public class BabysitterService {
     public static final String FAMILY_B = "FamilyB";
     public static final String FAMILY_C = "FamilyC";
 
+    private List<String> registeredFamilies;
+
     private static BabysitterService service = null;
     private BabysitterService() {
         reservations = new HashMap<>();
-
+        registeredFamilies = Arrays.asList("FamilyA", "FamilyB", "FamilyC");
     }
 
     public static BabysitterService getService() {
@@ -38,7 +42,12 @@ public class BabysitterService {
         }
     }
 
-    public void addReservation(String family, Calendar start, Calendar end) {
+    public void addReservation(String family, Calendar start, Calendar end)
+            throws UnregisteredFamilyException {
+        if (!registeredFamilies.contains(family)) {
+            throw new UnregisteredFamilyException();
+        }
+
         if (isAvailable(start) && isAvailable(end) && isOneNight(start, end)) {
             ArrayList<Calendar> times = new ArrayList<>();
             times.add(start);

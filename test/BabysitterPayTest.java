@@ -44,7 +44,8 @@ public class BabysitterPayTest {
     }
 
     @Test(expected = UnregisteredFamilyException.class)
-    public void unregisteredFamilyExceptionWhenRegisteringUnrecognizedFamily() {
+    public void unregisteredFamilyExceptionWhenRegisteringUnrecognizedFamily()
+        throws UnregisteredFamilyException {
         service.addReservation("FamilyD", start, end);
     }
 
@@ -60,7 +61,11 @@ public class BabysitterPayTest {
     @Test
     public void isAvailableFailsWhenRequestingReservedNight() {
         String family = BabysitterService.FAMILY_A;
-        service.addReservation(family, start, end);
+        try {
+            service.addReservation(family, start, end);
+        } catch (UnregisteredFamilyException e) {
+            e.printStackTrace();
+        }
         assertFalse(service.isAvailable(start));
         BabysitterService service2 = BabysitterService.getService();
         assertFalse(service2.isAvailable(start));
