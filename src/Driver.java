@@ -6,7 +6,8 @@ import java.text.ParseException;
 import java.text.NumberFormat;
 
 public class Driver {
-    public static void main(String[] args) throws UnregisteredFamilyException {
+    public static void main(String[] args)
+            throws UnregisteredFamilyException, ReservationOutOfRangeException {
         Scanner in = new Scanner(System.in);
 
         BabysitterService service = BabysitterService.getService();
@@ -49,9 +50,13 @@ public class Driver {
             GregorianCalendar end = new GregorianCalendar();
             end.setTime(endDateAndTime);
 
-            System.out.println(service.isOneNight(start, end));
+            try {
+                service.addReservation(family, start, end);
+            } catch (ReservationOutOfRangeException e) {
+                System.out.println("Dates exceed one night. Reservation not added.");
+                throw new ReservationOutOfRangeException();
+            }
 
-            service.addReservation(family, start, end);
             PayCalculator calc = service.getPayCalculator(family);
             int totalCost = calc.calculateAmountOwed(start, end);
             NumberFormat formatter = NumberFormat.getCurrencyInstance();

@@ -45,13 +45,13 @@ public class BabysitterPayTest {
 
     @Test(expected = UnregisteredFamilyException.class)
     public void unregisteredFamilyExceptionWhenRegisteringUnrecognizedFamily()
-        throws UnregisteredFamilyException {
+        throws UnregisteredFamilyException, ReservationOutOfRangeException {
         service.addReservation("FamilyD", start, end);
     }
 
     @Test(expected = ReservationOutOfRangeException.class)
     public void reservationOutOfRangeExceptionWhenAttemptingMoreThanOneNight()
-        throws ReservationOutOfRangeException {
+        throws ReservationOutOfRangeException, UnregisteredFamilyException {
         Calendar newDay = new GregorianCalendar(
                 2019, Calendar.MAY, 6, 3,0);
         service.addReservation(BabysitterService.FAMILY_A, start, newDay);
@@ -67,7 +67,7 @@ public class BabysitterPayTest {
     }
 
     @Test
-    public void isAvailableFailsWhenRequestingReservedNight() {
+    public void isAvailableFailsWhenRequestingReservedNight() throws ReservationOutOfRangeException {
         String family = BabysitterService.FAMILY_A;
         try {
             service.addReservation(family, start, end);

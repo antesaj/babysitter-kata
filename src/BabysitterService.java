@@ -43,9 +43,13 @@ public class BabysitterService {
     }
 
     public void addReservation(String family, Calendar start, Calendar end)
-            throws UnregisteredFamilyException {
+            throws UnregisteredFamilyException, ReservationOutOfRangeException {
         if (!registeredFamilies.contains(family)) {
             throw new UnregisteredFamilyException();
+        }
+
+        if (!isOneNight(start, end)) {
+            throw new ReservationOutOfRangeException();
         }
 
         if (isAvailable(start) && isAvailable(end) && isOneNight(start, end)) {
