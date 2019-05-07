@@ -134,7 +134,7 @@ public class BabysitterPayTest {
 
         assertEquals(36, amountOwed); // 12*3
         assertEquals(112, amountOwed2); // 12*4 + 8*2 + 16*3
-        assertEquals(16, amountOwed3);
+        assertEquals(16, amountOwed3); // 8*2
         assertEquals(32, amountOwed4); // 16*2
 
     }
