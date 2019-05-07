@@ -93,10 +93,13 @@ public class BabysitterPayTest {
     public void testFamilyAPayCalculation() {
         // Pays $15 per hour before 11pm, $20 per hour rest of night.
         PayCalculator payCalculator = BabysitterService.getPayCalculator(BabysitterService.FAMILY_A);
+        // Case for all before 11pm
         GregorianCalendar startAtNinePM = generateDatetime(6, 21, 0);
         GregorianCalendar endAtElevenPM = generateDatetime(6, 23, 0);
+        // Case for both before 11pm and some time after.
         GregorianCalendar startAtSixPM = generateDatetime(6, 18, 0);
         GregorianCalendar endAtThreeAM = generateDatetime(7, 3, 0);
+        // Case for all after 11pm
         GregorianCalendar startAtTwoAM = generateDatetime(7,2,0);
         GregorianCalendar endAtFourAM = generateDatetime(7,4,0);
 
@@ -141,7 +144,24 @@ public class BabysitterPayTest {
 
     @Test
     public void testFamilyCCalculation() {
+        // Family C pays $21/hour before 9pm, $15 rest of night
         PayCalculator payCalculator = BabysitterService.getPayCalculator(BabysitterService.FAMILY_C);
+        // Case for all before 9pm
+        GregorianCalendar startAtSevenPM = generateDatetime(6, 19, 0);
+        GregorianCalendar endAtNinePM = generateDatetime(6, 21, 0);
+        // Case for all after 9pm
+        GregorianCalendar startAtTenPM = generateDatetime(6, 22, 0);
+        GregorianCalendar endAtThreeAM = generateDatetime(7, 3, 0);
+        // Case for both before and after 9pm
+        GregorianCalendar startAtSixPM = generateDatetime(6, 18, 0);
+        GregorianCalendar endAtFourAM = generateDatetime(7, 4, 0);
 
+        int amountOwed = payCalculator.calculateAmountOwed(startAtSevenPM, endAtNinePM);
+        int amountOwed2 = payCalculator.calculateAmountOwed(startAtTenPM, endAtThreeAM);
+        int amountOwed3 = payCalculator.calculateAmountOwed(startAtSixPM, endAtFourAM);
+
+        assertEquals(42, amountOwed); // 21*2
+        assertEquals(75, amountOwed2); // 15*5
+        assertEquals(168, amountOwed3); // 21*3 + 15*7
     }
 }
